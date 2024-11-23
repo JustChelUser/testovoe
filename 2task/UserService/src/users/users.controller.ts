@@ -6,7 +6,7 @@ import { UsersService } from './users.service';
 export class UsersController {
     constructor(private userService:UsersService){}
 
-    @ApiOperation({ summary: 'Количнство пользователей с проблемами' })
+    @ApiOperation({ summary: 'Количество пользователей с проблемами' })
     @ApiResponse({ status: 200 })
     @Get()
     async getAllProjects() {
