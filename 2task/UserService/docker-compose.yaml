@@ -1,0 +1,42 @@
+networks:
+  main:
+services:
+  user-service:
+    build:
+      context: ./
+    volumes:
+      - ./db:/usr/src/app/db
+    networks:
+      - main
+    ports:
+      - ${PORTS}
+    depends_on:
+      - database
+      - pgadmin
+  database:
+    image: postgres
+    restart: always
+    container_name: ${POSTGRES_CONTAINER_NAME}
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - dbData:/var/lib/postgresql/data
+    networks:
+      - main
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+    volumes:
+      - PgAdminUserSevice:/var/lib/PgAdmin
+    ports:
+      - ${PGADMIN_PORT}
+    networks:
+      - main
+volumes:
+  dbData:
+  PgAdminUserSevice:
