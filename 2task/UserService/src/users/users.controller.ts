@@ -9,7 +9,7 @@ export class UsersController {
     @ApiOperation({ summary: 'Количество пользователей с проблемами' })
     @ApiResponse({ status: 200 })
     @Get()
-    async getAllProjects() {
+    async updateUsersWithProblems() {
         return await this.userService.updateUsersWithProblems()
     }
 }
